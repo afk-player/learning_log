@@ -40,7 +40,9 @@ def new_topic(request):
     else:
         form = TopicForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            new_topic = form.save(commit=False)
+            new_topic.owner = request.user
+            new_topic.save()
             return redirect('learning_logs:topics')
 
     context = {'form': form}
@@ -56,6 +58,8 @@ def new_entry(request, topic_id):
     else:
         form = EntryForm(data=request.POST)
         if form.is_valid():
+            if topic.owner != request.user:
+                raise Http404
             new_entry = form.save(commit=False)
             new_entry.topic = topic
             new_entry.save()
@@ -70,13 +74,16 @@ def edit_entry(request, entry_id):
     """Edit entry"""
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
+    if topic.owner != request.user:
+        raise Http404
+
     if request.method != 'POST':
         form = EntryForm(instance=entry)
     else:
         form = EntryForm(instance=entry, data=request.POST)
         if form.is_valid():
             form.save()
-            redirect('learning_logs:topic', topic_id=topic.id)
+            return redirect('learning_logs:topic', topic_id=topic.id)
 
     context = {'entry': entry, 'topic': topic, 'form': form}
     return render(request, 'learning_logs/edit_entry.html', context)
