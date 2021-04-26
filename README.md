@@ -1,4 +1,4 @@
-# Learning log. The first project I've made.
+# Learning l😐g. The first pr😐ject I've made.
 Create virtual environment
 ```
 python3.9 -m venv venv
@@ -23,4 +23,4 @@ Create superuser
 ```
 python manage.py createsuperuser
 ```
-# Well done. Enjoy.
+# Well d😐ne. Enj😐y.
