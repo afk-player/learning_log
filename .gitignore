@@ -1,7 +1,8 @@
 .idea
-
-venv
-
+venv/
 __pycache__/
-
 *.sqlite3
+media/
+.env
+setenv.sh
+.DS_Store

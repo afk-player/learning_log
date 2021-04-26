@@ -30,19 +30,20 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+PROJECT_APPS = [
     'learning_logs',
     'users',
+]
 
-    'bootstrap4',
-
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    *PROJECT_APPS,
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -126,7 +127,3 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_URL = '/users/login'
-
-# Heroku settings
-import django_heroku
-django_heroku.settings(locals())
